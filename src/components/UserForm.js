@@ -1,86 +1,82 @@
-import { Button, Form, Input } from "antd";
-import { Card } from "antd";
-import { useState, useEffect } from "react";
+import classes from "./Header.module.css";
+import { useEffect } from "react";
+import { Button, Form, Input, Select } from "antd";
+const { Option } = Select;
 
 const UserForm = (props) => {
   const [form] = Form.useForm();
-  const [formValue, setFormValue] = useState({
-    name: "",
-    age: "",
-    medicine: "",
-    disease: "",
-  });
-
   useEffect(() => {
-    setFormValue({
-      name: props.entities.PERSON,
-      age: props.entities.DATE,
-      medicine: props.entities.CHEMICAL,
-      disease: props.entities.DISEASE,
-    });
-  }, [props.entities]);
-
-  console.log(props.entities);
-  console.log("form value:", formValue);
+    if (props && props.entities) {
+      form.setFieldsValue({
+        name: props.entities.PERSON,
+        age: props.entities.DATE,
+        medicine: props.entities.CHEMICAL,
+        disease: props.entities.DISEASE,
+      });
+    }
+  }, [props]);
 
   const onFinish = (values) => {
     console.log("Success:", values);
+    if (values) {
+      form.setFieldsValue({
+        ...values,
+      });
+    }
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-      }}>
-      <Card
-        style={{
-          width: 600,
-        }}>
-        <Form
-          name="userForm"
-          form={form}
-          labelCol={{
-            span: 8,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
-          style={{
-            maxWidth: 600,
-          }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off">
-          <Form.Item label="name" name="name">
-            <Input />
-          </Form.Item>
+    <Form
+      name="userForm"
+      form={form}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+      autoComplete="off"
+      className={classes.form}>
+      <Form.Item name="name">
+        <Input
+          className={`${classes["form-field"]} ${classes.animation} ${classes.a3}`}
+          placeholder="Name"
+        />
+      </Form.Item>
 
-          <Form.Item label="age" name="age">
-            <Input />
-          </Form.Item>
-          <Form.Item label="disease" name="disease">
-            <Input />
-          </Form.Item>
-          <Form.Item label="medicines" name="medicine">
-            <Input />
-          </Form.Item>
+      <Form.Item name="age">
+        <Input
+          className={`${classes["form-field"]} ${classes.animation} ${classes.a3}`}
+          placeholder="Age"
+        />
+      </Form.Item>
+      <Form.Item name="disease">
+        <Input
+          className={`${classes["form-field"]} ${classes.animation} ${classes.a3}`}
+          placeholder="Disease"
+        />
+      </Form.Item>
+      <Form.Item name="medicine">
+        <Input
+          className={`${classes["form-field"]} ${classes.animation} ${classes.a3}`}
+          placeholder="Medicine"
+        />
+      </Form.Item>
+      <Form.Item>
+        <Input
+          className={`${classes["form-field"]} ${classes.animation} ${classes.a3}`}
+          placeholder="Gender"
+        />
+      </Form.Item>
 
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </Card>
-    </div>
+      <Form.Item>
+        <Button
+          type="primary"
+          htmlType="submit"
+          className={`${classes.animation} ${classes.a6} ${classes.button}`}>
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
 export default UserForm;

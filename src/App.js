@@ -2,12 +2,9 @@ import "./App.css";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import { Fragment, useEffect, useState } from "react";
-import { Button } from "antd";
-import UserForm from "./components/UserForm";
 
-import { Avatar, Card } from "antd";
-const { Meta } = Card;
+import { useState, useEffect } from "react";
+import Header from "./components/Header";
 
 function App() {
   const [transcript, setTranscript] = useState("");
@@ -41,8 +38,8 @@ function App() {
             "Content-Type": "application/json", // Set the content type to JSON
           },
           body: JSON.stringify({
-            text: finalTranscript,
-            // text: "john doe , who is 35 years old, was diagnosed with lung cancer . His doctor prescribed him a chemotherapy treatment and a medication called Tylenol .",
+            // text: finalTranscript,
+            text: "john doe , who is 35 years old, was diagnosed with lung cancer . His doctor prescribed him a chemotherapy treatment and a medication called Tylenol .",
           }), // Send the text data as JSON
         });
 
@@ -70,51 +67,14 @@ function App() {
   }, [finalTranscript]);
 
   return (
-    <Fragment>
-      <div className="App-header">
-        <Card
-          style={{
-            width: 350,
-          }}
-          cover={
-            <img
-              alt="example"
-              src="https://cdn.pixabay.com/photo/2018/07/15/18/55/audio-3540254__340.jpg"
-            />
-          }
-          actions={[
-            <Button type="primary" onClick={handleListen} disabled={listening}>
-              {listening ? "Listening..." : "Start"}
-            </Button>,
-            <Button
-              type="primary"
-              onClick={handleStop}
-              disabled={!listening}
-              danger>
-              Stop
-            </Button>,
-            <Button
-              onClick={() => {
-                resetTranscript();
-                setTranscript("");
-              }}>
-              Clear
-            </Button>,
-          ]}>
-          <Meta
-            avatar={
-              <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />
-            }
-            title="Speech To Text Recorder "
-            description={listening ? "Listening..." : "Start Listening"}
-          />
-        </Card>
-
-        {/* <p>This is transcript: {transcript}</p>
-        <p>Named entities: {JSON.stringify(namedEntities)}</p> */}
-      </div>
-      <UserForm entities={namedEntities} />
-    </Fragment>
+    <Header
+      entities={namedEntities}
+      handleListen={handleListen}
+      listening={listening}
+      handleStop={handleStop}
+      resetTranscript={resetTranscript}
+      setTranscript={setTranscript}
+    />
   );
 }
 
