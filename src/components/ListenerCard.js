@@ -1,5 +1,7 @@
 import classes from "./ListenerCard.module.css";
 import { Avatar, Card, Button } from "antd";
+import Lottie from "lottie-react";
+import recording from "../recording.json";
 const { Meta } = Card;
 
 const ListenerCard = (props) => {
@@ -11,10 +13,11 @@ const ListenerCard = (props) => {
           height: 400,
         }}
         cover={
-          <img
-            alt="example"
-            src="https://cdn.pixabay.com/photo/2018/07/15/18/55/audio-3540254__340.jpg"
-          />
+          // <img
+          //   alt="example"
+          //   src="https://cdn.pixabay.com/photo/2018/07/15/18/55/audio-3540254__340.jpg"
+          // />
+          <Lottie animationData={recording} loop={true} />
         }
         actions={[
           <Button
