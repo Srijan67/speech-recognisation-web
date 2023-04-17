@@ -22,11 +22,14 @@ const ListenerCard = (props) => {
   return (
     <motion.div
       className={classes.header}
-      initial={{ y: "100vw" }}
-      animate={{ y: 0 }}
+      initial={{ x: "100vw" }}
+      animate={{ x: 0 }}
       transition={{
         delay: 1,
-        duration: 3,
+        duration: 1,
+      }}
+      whileHover={{
+        scale: 1.1,
       }}>
       <Card
         style={{
@@ -34,15 +37,11 @@ const ListenerCard = (props) => {
           height: 400,
         }}
         cover={
-          // <img
-          //   alt="example"
-          //   src="https://cdn.pixabay.com/photo/2018/07/15/18/55/audio-3540254__340.jpg"
-          // />
-          <Lottie
-            animationData={recording}
-            loop={props.listening}
-            isStopped={playingState}
-          />
+          playingState ? (
+            <Lottie animationData={recording} loop={true} />
+          ) : (
+            <Lottie animationData={recording} loop={false} />
+          )
         }
         actions={[
           <Button

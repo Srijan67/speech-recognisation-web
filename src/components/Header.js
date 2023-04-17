@@ -52,8 +52,8 @@ const Header = (props) => {
           initial={{ x: "100vw" }}
           animate={{ x: 0 }}
           transition={{
-            delay: 2,
-            duration: 5,
+            delay: 1,
+            duration: 2,
           }}>
           <div className={classes.box}>
             <Lottie animationData={recording} loop={false} />
